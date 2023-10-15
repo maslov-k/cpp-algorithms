@@ -1,46 +1,129 @@
-#include <chrono>
-#include <cassert>
-#include <cstdint>
+#include "log_duration.h"
+
 #include <iostream>
+#include <cassert>
+#include <utility>
+#include <vector>
+#include <algorithm>
 
-class LogDuration
+// gcd ------------------------------------------------------------------------------------------------------------------------------------
+
+//template <class Int>
+//Int gcd(Int a, Int b)
+//{
+//    while (a > 0 && b > 0)
+//    {
+//        if (a > b)
+//            a %= b;
+//        else
+//            b %= a;
+//    }
+
+//    return a == 0 ? b : a;
+//}
+
+// covering set ------------------------------------------------------------------------------------------------------------------------------------
+
+//std::vector<int> get_covering_set(std::vector<std::pair<int, int>>&& segments)
+//{
+//    assert(segments.size() > 0);
+
+//    std::vector<int> result;
+
+//    std::sort(segments.begin(), segments.end(), [](const std::pair<int, int>& l, const std::pair<int, int>& r)
+//              {
+//                  return l.second < r.second;
+//              });
+
+//    result.push_back(segments.front().second);
+
+//    for (auto s : segments)
+//    {
+//        if (result.back() >= s.first)
+//            continue;
+//        else
+//            result.push_back(s.second);
+//    }
+
+//    return result;
+//}
+
+//int main()
+//{
+//    int segments_count;
+//    std::cin >> segments_count;
+
+//    std::vector <std::pair<int, int>> segments(segments_count);
+
+//    for (auto& s : segments)
+//    {
+//        std::cin >> s.first >> s.second;
+//    }
+
+//    std::vector<int> points = get_covering_set(std::move(segments));
+
+//    std::cout << points.size() << std::endl;
+
+//    for (int point : points)
+//    {
+//        std::cout << point << " ";
+//    }
+
+//    std::cout << std::endl;
+
+//    return 0;
+//}
+
+// max knapsack value ------------------------------------------------------------------------------------------------------------------------------------
+
+struct Item
 {
-public:
-    LogDuration() {
-    }
-    ~LogDuration() {
-        const auto end_time = std::chrono::steady_clock::now();
-        const auto dur = end_time - start_time_;
-
-        std::cerr << std::chrono::duration_cast<std::chrono::milliseconds>(dur).count() << " ms" << std::endl;
-    }
-private:
-    const std::chrono::steady_clock::time_point start_time_ = std::chrono::steady_clock::now();
+    int weight;
+    int value;
 };
 
-template <class Int>
-Int gcd(Int a, Int b)
+double get_max_knapsack_value(int capacity, std::vector<Item>&& items)
 {
-    while (a > 0 && b > 0)
+    double result = 0.0;
+
+    std::sort(items.begin(), items.end(), [](const Item& l, const Item& r)
+              {
+                  return l.value * 1. / l.weight > r.value * 1. / r.weight;
+              });
+
+    for (auto& item : items)
     {
-        if (a > b)
-            a %= b;
+        if (capacity > item.weight)
+        {
+            capacity -= item.weight;
+            result += item.value;
+        }
         else
-            b %= a;
+        {
+            result += item.value * (static_cast <double>(capacity) / item.weight);
+            break;
+        }
     }
 
-    return a == 0 ? b : a;
+    return result;
 }
 
-int main()
+int main(void)
 {
-    int64_t n;
-    int64_t m;
-    std::cin >> n >> m;
+    int number_of_items;
+    int knapsack_capacity;
 
-    LogDuration log_duration;
+    std::cin >> number_of_items >> knapsack_capacity;
 
-    std::cout << gcd(n, m) << std::endl;
+    std::vector<Item> items(number_of_items);
+
+    for (int i = 0; i < number_of_items; i++)
+        std::cin >> items[i].value >> items[i].weight;
+
+    double max_knapsack_value = get_max_knapsack_value(knapsack_capacity, std::move(items));
+
+    std::cout.precision(10);
+    std::cout << max_knapsack_value << std::endl;
 
     return 0;
 }
