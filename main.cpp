@@ -294,3 +294,122 @@
 
 //    return 0;
 //}
+
+// Priority queue ------------------------------------------------------------------------------------------------------------------------------------
+
+//class PriorityQueue
+//{
+//public:
+//    explicit PriorityQueue()
+//    {}
+
+//public:
+//    void insert(int value)
+//    {
+//        m_queue.push_back(value);
+//        siftUp(static_cast<int>(m_queue.size()) - 1);
+//    }
+
+//    int extractMax()
+//    {
+//        int maxValue = m_queue[0];
+
+//        std::swap(m_queue[0], m_queue[m_queue.size() - 1]);
+
+//        m_queue.pop_back();
+
+//        siftDown(0);
+
+//        return maxValue;
+//    }
+
+//private:
+//    void siftUp(int i)
+//    {
+//        while (true)
+//        {
+//            int parentInd = parentIndex(i);
+
+//            if (parentInd == -1 || m_queue[i] <= m_queue[parentInd])
+//                break;
+
+//            std::swap(m_queue[i], m_queue[parentInd]);
+
+//            i = parentInd;
+//        }
+//    }
+
+//    void siftDown(int i)
+//    {
+//        while (true)
+//        {
+//            std::vector<int> children = childrenIndexes(i);
+
+//            if (children.empty())
+//                break;
+
+//            int maxChildIndex = *std::max_element(children.begin(), children.end(), [this](int l, int r)
+//                                                  {
+//                                                      return m_queue[l] < m_queue[r];
+//                                                  });
+
+//            if (m_queue[i] > m_queue[maxChildIndex])
+//                break;
+
+//            std::swap(m_queue[maxChildIndex], m_queue[i]);
+
+//            i = maxChildIndex;
+//        }
+//    }
+
+//    int parentIndex(int i)
+//    {
+//        return i == 0 ? -1 : (i - 1) / 2;
+//    }
+
+//    std::vector<int> childrenIndexes(int i)
+//    {
+//        std::vector<int> result;
+
+//        int firstChild  = i * 2 + 1;
+//        int secondChild = i * 2 + 2;
+
+//        if (firstChild < m_queue.size())
+//            result.push_back(firstChild);
+
+//        if (secondChild < m_queue.size())
+//            result.push_back(secondChild);
+
+//        return result;
+//    }
+
+//private:
+//    std::vector<int> m_queue;
+//};
+
+//int main()
+//{
+//    int n;
+//    std::cin >> n;
+
+//    PriorityQueue priorityQueue;
+
+//    for (int i = 0; i < n; ++i)
+//    {
+//        std::string cmd;
+//        int value;
+
+//        std::cin >> cmd;
+
+//        if (cmd == "Insert")
+//        {
+//            std::cin >> value;
+
+//            priorityQueue.insert(value);
+//        }
+//        else if (cmd == "ExtractMax")
+//            std::cout << priorityQueue.extractMax() << std::endl;
+//    }
+
+//    return 0;
+//}
