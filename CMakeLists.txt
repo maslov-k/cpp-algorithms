@@ -41,6 +41,12 @@ target_include_directories(quick_sort PRIVATE .)
 add_executable(points_and_segments methods/points_and_segments.cpp log_duration.h)
 target_include_directories(points_and_segments PRIVATE .)
 
+add_executable(longest_div_subseq methods/longest_div_subseq.cpp log_duration.h)
+target_include_directories(longest_div_subseq PRIVATE .)
+
+add_executable(longest_non_incr_subseq methods/longest_non_incr_subseq.cpp log_duration.h)
+target_include_directories(longest_non_incr_subseq PRIVATE .)
+
 install(TARGETS
     gcd
     covering_set
@@ -54,4 +60,6 @@ install(TARGETS
     number_of_inversions
     quick_sort
     points_and_segments
+    longest_div_subseq
+    longest_non_incr_subseq
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
