@@ -83,45 +83,6 @@ std::vector<size_t> longest_non_incr_subseq(const std::vector<int>& a) // nlogn
     std::reverse(result.begin(), result.end());
 
     return result;
-
-//    int subseq_size = *std::max_element(d.begin(), d.end());
-//    std::vector<size_t> subseq_indexes;
-//    subseq_indexes.reserve(subseq_size);
-
-//    int current_subseq_size = subseq_size;
-
-//    size_t index = d.size();
-//    while (current_subseq_size > 0 && index > 0)
-//    {
-//        --index;
-//        if (d[index] == current_subseq_size && (subseq_indexes.empty() || vec[index] >= vec[subseq_indexes.back() - 1]))
-//        {
-//            subseq_indexes.push_back(index + 1);
-//            --current_subseq_size;
-//        }
-//    }
-
-//    std::reverse(subseq_indexes.begin(), subseq_indexes.end());
-
-
-
-
-//    for (int i : d)
-//        std::cout << i << ' ';
-
-//    std::cout << '\n';
-
-//    for (int i : d_indexes)
-//        std::cout << i << ' ';
-
-//    std::cout << '\n';
-
-//    for (int i : prev_a)
-//        std::cout << i << ' ';
-
-//    std::cout << '\n';
-
-//    return /*subseq_indexes*/{};
 }
 
 int main()
