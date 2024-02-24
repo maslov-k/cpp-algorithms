@@ -50,6 +50,9 @@ target_include_directories(longest_non_incr_subseq PRIVATE .)
 add_executable(levenshtein_distance methods/levenshtein_distance.cpp log_duration.h)
 target_include_directories(levenshtein_distance PRIVATE .)
 
+add_executable(knapsack_without_reps methods/knapsack_without_reps.cpp log_duration.h)
+target_include_directories(knapsack_without_reps PRIVATE .)
+
 install(TARGETS
     gcd
     covering_set
@@ -66,4 +69,5 @@ install(TARGETS
     longest_div_subseq
     longest_non_incr_subseq
     levenshtein_distance
+    knapsack_without_reps
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
