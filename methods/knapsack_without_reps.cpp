@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+// https://stepik.org/lesson/13259/step/5
+
 int knapsack_without_reps(int capacity, const std::vector<int>& weights, const std::vector<int>& costs)
 {
     std::vector<std::vector<int>> d(capacity + 1, std::vector<int>(weights.size() + 1, 0));

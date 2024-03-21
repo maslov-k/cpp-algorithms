@@ -53,6 +53,12 @@ target_include_directories(levenshtein_distance PRIVATE .)
 add_executable(knapsack_without_reps methods/knapsack_without_reps.cpp log_duration.h)
 target_include_directories(knapsack_without_reps PRIVATE .)
 
+add_executable(stairs methods/stairs.cpp log_duration.h)
+target_include_directories(stairs PRIVATE .)
+
+add_executable(calculator methods/calculator.cpp log_duration.h)
+target_include_directories(calculator PRIVATE .)
+
 install(TARGETS
     gcd
     covering_set
@@ -70,4 +76,6 @@ install(TARGETS
     longest_non_incr_subseq
     levenshtein_distance
     knapsack_without_reps
+    stairs
+    calculator
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
