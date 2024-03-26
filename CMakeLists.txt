@@ -5,6 +5,7 @@ project(algorithms LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Methods
 add_executable(gcd methods/gcd.cpp log_duration.h)
 target_include_directories(gcd PRIVATE .)
 
@@ -59,7 +60,12 @@ target_include_directories(stairs PRIVATE .)
 add_executable(calculator methods/calculator.cpp log_duration.h)
 target_include_directories(calculator PRIVATE .)
 
+# Data structures
+add_executable(check_brackets "data structures/check_brackets.cpp" log_duration.h)
+target_include_directories(check_brackets PRIVATE .)
+
 install(TARGETS
+    # Methods
     gcd
     covering_set
     knapsack
@@ -78,4 +84,6 @@ install(TARGETS
     knapsack_without_reps
     stairs
     calculator
+    # Data structures
+    check_brackets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
