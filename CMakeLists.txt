@@ -64,6 +64,12 @@ target_include_directories(calculator PRIVATE .)
 add_executable(check_brackets "data structures/check_brackets.cpp" log_duration.h)
 target_include_directories(check_brackets PRIVATE .)
 
+add_executable(tree_height "data structures/tree_height.cpp" log_duration.h)
+target_include_directories(tree_height PRIVATE .)
+
+add_executable(net_buffer "data structures/net_buffer.cpp" log_duration.h)
+target_include_directories(net_buffer PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -86,4 +92,6 @@ install(TARGETS
     calculator
     # Data structures
     check_brackets
+    tree_height
+    net_buffer
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
