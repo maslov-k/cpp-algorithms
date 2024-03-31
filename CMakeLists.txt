@@ -70,6 +70,12 @@ target_include_directories(tree_height PRIVATE .)
 add_executable(net_buffer "data structures/net_buffer.cpp" log_duration.h)
 target_include_directories(net_buffer PRIVATE .)
 
+add_executable(stack_with_max "data structures/stack_with_max.cpp" log_duration.h)
+target_include_directories(stack_with_max PRIVATE .)
+
+add_executable(sliding_window "data structures/sliding_window.cpp" log_duration.h)
+target_include_directories(sliding_window PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -94,4 +100,6 @@ install(TARGETS
     check_brackets
     tree_height
     net_buffer
+    stack_with_max
+    sliding_window
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
