@@ -76,6 +76,9 @@ target_include_directories(stack_with_max PRIVATE .)
 add_executable(sliding_window "data structures/sliding_window.cpp" log_duration.h)
 target_include_directories(sliding_window PRIVATE .)
 
+add_executable(build_heap "data structures/build_heap.cpp" log_duration.h)
+target_include_directories(build_heap PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -102,4 +105,5 @@ install(TARGETS
     net_buffer
     stack_with_max
     sliding_window
+    build_heap
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
