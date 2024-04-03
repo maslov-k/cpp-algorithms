@@ -79,6 +79,9 @@ target_include_directories(sliding_window PRIVATE .)
 add_executable(build_heap "data structures/build_heap.cpp" log_duration.h)
 target_include_directories(build_heap PRIVATE .)
 
+add_executable(parallel_processing "data structures/parallel_processing.cpp" log_duration.h)
+target_include_directories(parallel_processing PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -106,4 +109,5 @@ install(TARGETS
     stack_with_max
     sliding_window
     build_heap
+    parallel_processing
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

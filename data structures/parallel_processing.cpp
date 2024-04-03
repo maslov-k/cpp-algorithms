@@ -3,13 +3,21 @@
 #include <iostream>
 #include <vector>
 
-// https://stepik.org/lesson/41560/step/1
+// https://stepik.org/lesson/41560/step/2
 
-struct Change
+template<typename T>
+struct Element
 {
-    size_t index_1;
-    size_t index_2;
+    T   data;
+    int64_t priority;
+
+    bool operator < (const Element<T>& other) const
+    {
+        return priority == other.priority ? data < other.data : priority < other.priority;
+    }
 };
+
+
 
 template<typename T>
 class HeapMin
@@ -18,15 +26,14 @@ public:
     HeapMin()
     {}
 
-    HeapMin(std::vector<T>&& data)
+    HeapMin(std::vector<Element<T>>&& data)
         : _elements(data)
-    {
-        fix_heap();
-    }
+    {}
 
-    const std::vector<Change> changes()
+    void fix_heap()
     {
-        return _changes;
+        for (int i = static_cast<int>(size() / 2 - 1); i >= 0; --i)
+            sift_down(i);
     }
 
     size_t size()
@@ -34,15 +41,15 @@ public:
         return _elements.size();
     }
 
-    void insert(const T& p)
+    void insert(const Element<T>& el)
     {
-        _elements.push_back(p);
+        _elements.push_back(el);
         sift_up(_elements.size() - 1);
     }
 
-    T extract_max()
+    Element<T> extract_min()
     {
-        T result(std::move(_elements.front()));
+        Element<T> result(std::move(_elements.front()));
 
         std::swap(_elements.front(), _elements.back());
 
@@ -51,6 +58,18 @@ public:
         sift_down(0);
 
         return result;
+    }
+
+    void change_priority(size_t i, int64_t p)
+    {
+        int64_t old_p = _elements[i].priority;
+
+        _elements[i].priority = p;
+
+        if (p < old_p)
+            sift_up(i);
+        else
+            sift_down(i);
     }
 
     void remove(size_t i)
@@ -62,7 +81,12 @@ public:
         sift_down(i);
     }
 
-    const T& operator[](size_t i)
+    const Element<T>& top()
+    {
+        return _elements[0];
+    }
+
+    const Element<T>& operator[](size_t i)
     {
         return _elements[i];
     }
@@ -83,17 +107,17 @@ private:
         return 2 * i + 2;
     }
 
-    T& parent(size_t i)
+    Element<T>& parent(size_t i)
     {
         return _elements[parent_index(i)];
     }
 
-    T& left_child(size_t i)
+    Element<T>& left_child(size_t i)
     {
         return _elements[left_child_index(i)];
     }
 
-    T& right_child(size_t i)
+    Element<T>& right_child(size_t i)
     {
         return _elements[right_child_index(i)];
     }
@@ -115,7 +139,7 @@ private:
 
     void sift_up(size_t i)
     {
-        while (i > 0 && parent(i) > _elements[i])
+        while (i > 0 && _elements[i] < parent(i))
         {
             std::swap(parent(i), _elements[i]);
             i = parent_index(i);
@@ -136,53 +160,49 @@ private:
         {
             std::swap(_elements[i], _elements[min_index]);
 
-            _changes.push_back({i, min_index});
-
             sift_down(min_index);
         }
     }
 
-    void fix_heap()
-    {
-        _changes.clear();
-
-        for (int i = static_cast<int>(size() / 2 - 1); i >= 0; --i)
-            sift_down(i);
-    }
-
 private:
-    std::vector<T> _elements;
-
-    std::vector<Change> _changes;
+    std::vector<Element<T>> _elements;
 };
 
 int main()
 {
     int n;
+    int m;
 
     std::cin >> n;
+    std::cin >> m;
 
-    std::vector<int> a;
-    a.reserve(n);
+    std::vector<int64_t> tasks;
+    tasks.reserve(m);
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < m; ++i)
     {
-        int v;
-        std::cin >> v;
+        int64_t time;
+        std::cin >> time;
 
-        a.push_back(v);
+        tasks.push_back(time);
     }
 
-    HeapMin<int> heap(std::move(a));
+    std::vector<Element<int>> processors;
+    processors.reserve(n);
 
-    const std::vector<Change> changes = heap.changes();
+    for (int i = 0; i < n; ++i)
+        processors.push_back({i, 0});
 
-    std::cout << changes.size() << '\n';
+    HeapMin<int> heap(std::move(processors));
 
-    for (Change change : changes)
-        std::cout << change.index_1 << ' ' << change.index_2 << '\n';
+    for (int64_t task_time : tasks)
+    {
+        const Element<int>& processor = heap.top();
 
-    std::cout << '\n';
+        std::cout << processor.data << ' ' << processor.priority << '\n';
+
+        heap.change_priority(0, processor.priority + task_time);
+    }
 
     return 0;
 }
