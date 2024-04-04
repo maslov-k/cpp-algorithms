@@ -85,6 +85,9 @@ target_include_directories(parallel_processing PRIVATE .)
 add_executable(table_join "data structures/table_join.cpp" log_duration.h)
 target_include_directories(table_join PRIVATE .)
 
+add_executable(variables_analysis "data structures/variables_analysis.cpp" log_duration.h)
+target_include_directories(variables_analysis PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -114,4 +117,5 @@ install(TARGETS
     build_heap
     parallel_processing
     table_join
+    variables_analysis
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
