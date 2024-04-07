@@ -91,6 +91,9 @@ target_include_directories(variables_analysis PRIVATE .)
 add_executable(phone_book "data structures/phone_book.cpp" log_duration.h)
 target_include_directories(phone_book PRIVATE .)
 
+add_executable(chain_hashing "data structures/chain_hashing.cpp" log_duration.h)
+target_include_directories(chain_hashing PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -122,4 +125,5 @@ install(TARGETS
     table_join
     variables_analysis
     phone_book
+    chain_hashing
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
