@@ -94,6 +94,9 @@ target_include_directories(phone_book PRIVATE .)
 add_executable(chain_hashing "data structures/chain_hashing.cpp" log_duration.h)
 target_include_directories(chain_hashing PRIVATE .)
 
+add_executable(rabin_karp "data structures/rabin_karp.cpp" log_duration.h)
+target_include_directories(rabin_karp PRIVATE .)
+
 install(TARGETS
     # Methods
     gcd
@@ -126,4 +129,5 @@ install(TARGETS
     variables_analysis
     phone_book
     chain_hashing
+    rabin_karp
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
