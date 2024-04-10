@@ -7,17 +7,6 @@
 
 // https://stepik.org/lesson/41562/step/3
 
-namespace
-{
-
-int64_t mod(int64_t a, int64_t b)
-{
-    double x = static_cast<double>(a) / b;
-    return a - std::floor(x) * b;
-}
-
-} // namespace
-
 class RabinKarp
 {
 public:
@@ -51,7 +40,7 @@ public:
             if (i == last_index)
                 prev_hash = hash(_text, i, i + pattern_size);
             else
-                prev_hash = ((mod(prev_hash - _text[i + pattern_size] * _last_x, _p) * _x) % _p + _text[i]) % _p;
+                prev_hash = ((((prev_hash - _text[i + pattern_size] * _last_x) % _p + _p) * _x) % _p + _text[i]) % _p;
 
             if (prev_hash == _pattern_hash && is_entry(i))
                 result.push_back(i);
